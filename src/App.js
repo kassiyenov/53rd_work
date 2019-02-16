@@ -17,8 +17,8 @@ class App extends Component {
   }
 
   generateDeck = () => {
-  let hand = [...this.state.hand]
-  for(let i = 0; i < 5; i++){
+    let hand = [...this.state.hand]
+    for(let i = 0; i < 5; i++){
       let rN = this.randomNumber(0, this.deck.arr.length - 1);
       console.log(rN)
       hand.push({'suit': this.deck.arr[rN].suit, 'rank': this.deck.arr[rN].rank, 'id': this.deck.arr[rN].uuid});
@@ -26,8 +26,19 @@ class App extends Component {
 
       this.setState({hand});
     }
-    // console.log(hand)
+  }
+  generateFromAnotherDeck = () => {
+    let anotherDeck = new CardDeck();
+    let hand = [...this.state.hand]
+    hand = [];
+    for(let i = 0; i < 5; i++){
+      let rN = this.randomNumber(0, this.deck.arr.length - 1);
+      console.log(rN)
+      hand.push({'suit': this.deck.arr[rN].suit, 'rank': this.deck.arr[rN].rank, 'id': this.deck.arr[rN].uuid});
+      this.deck.arr.splice(rN, 1);
 
+      this.setState({hand});
+    }
   }
   
   // console.log(randomNumber(2, 52));
@@ -42,6 +53,7 @@ class App extends Component {
     return (
       <div>
           <button onClick={this.generateDeck}>generate</button>
+          <button onClick={this.generateFromAnotherDeck}>generateFromAnotherDeck</button>
           
           <div className="playingCards">
             {arr}
